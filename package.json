@@ -1,0 +1,59 @@
+{
+  "name": "scaffold",
+  "version": "1.0.0",
+  "description": "a scaffold for nodejs apps and web3 apps with full integration, authentication and can use any database of your choice, sql and nosql",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint src test",
+    "lint:fix": "yarn lint --fix",
+    "prettier": "prettier src test --check",
+    "prettier:fix": "yarn prettier --write",
+    "format": "yarn prettier:fix && yarn lint:fix",
+    "build:commonjs": "rimraf lib && tsc --target es5 --outDir lib --module commonjs --declaration",
+    "build:es": "rimraf es && tsc --target es6 --outDir es --module es6",
+    "build": "tsc && shx rm -rf dist/templates &&  shx cp -r src/templates dist",
+    "start": "tsx src/index.ts",
+    "prepublishOnly": "yarn build"
+  },
+  "bin": {
+    "generator": "./dist/index.js"
+  },
+  "repository": "https://github.com/Ade-yem/scaffold",
+  "author": "Adeyemi Adejumo",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "ejs": "^3.1.10",
+    "inquirer": "^11.0.2",
+    "shelljs": "^0.8.5",
+    "ts-init": "^2.2.0",
+    "tslint-config-prettier": "^1.18.0",
+    "winston": "^3.14.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.11.0",
+    "@types/ejs": "^3.1.5",
+    "@types/glob": "^8.1.0",
+    "@types/node": "^22.5.5",
+    "@types/shelljs": "^0.8.15",
+    "eslint": "^9.11.0",
+    "globals": "^15.9.0",
+    "nodemon": "^3.1.7",
+    "prettier": "3.3.3",
+    "rimraf": "^6.0.1",
+    "shx": "^0.3.4",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.6.0"
+  },
+  "files": [
+    "es",
+    "lib"
+  ],
+  "types": "./lib/index.d.ts",
+  "jsnext:main": "./es/index.js",
+  "module": "./es/index.js"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "scaffold",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": {
+    "packages": ["workspace/*"]
+  },
+  "scripts": {
+    "create:controller": "yarn workspace @scaffold/server create:controller",
+    "create:route": "yarn workspace @scaffold/server create:route",
+    "create:model": "yarn workspace @scaffold/server create:model",
+    "create:service": "yarn workspace @scaffold/server create:service",
+    "start": "yarn workspace @scaffold/server start",
+    "create:page": "yarn workspace @scaffold/frontend create:page",
+    "create:ui": "yarn workspace @scaffold/frontend create:ui",
+    "create:context": "yarn workspace @scaffold/frontend create:context",
+    "dev": "yarn workspace @scaffold/frontend dev",
+    "build": "yarn workspace @scaffold/frontend build",
+    "client:start": "yarn workspace @scaffold/frontend start",
+    "lint": "yarn workspace @scaffold/frontend lint"
+  },
+  "dependencies": {
+    "deno-bin": "^2.0.3"
+  }
+}

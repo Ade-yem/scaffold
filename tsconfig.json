@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "target": "es6",
+    "module": "es2022",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "moduleDetection": "auto",
+    "lib": [
+      "es6"
+    ],
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true
+  },
+  "include": [
+    "src/*.ts",
+    "src/**/*.ts",
+    "src/utils/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
