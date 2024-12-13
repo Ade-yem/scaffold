@@ -2,6 +2,9 @@ import { DataTypes } from "sequelize";
 import { User } from "./user";
 import { sequelize } from "../index";
 
+const newDate = new Date();
+newDate.setTime(Date.now() + 43200);
+
 export const Token = sequelize.define("Token", {
   token: {
     type: DataTypes.STRING,
@@ -10,7 +13,7 @@ export const Token = sequelize.define("Token", {
 
   expiresAt: {
     type: DataTypes.DATE,
-    defaultValue: Date.now() + 43200,
+    defaultValue: newDate,
   },
 });
 Token.belongsTo(User, { foreignKey: "userId" });

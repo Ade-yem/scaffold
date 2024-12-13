@@ -1,9 +1,9 @@
 "use client";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
-// import { useRouter, usePathname } from "next/navigation";
-// import { axiosInstance } from "@/services/axios";
+import { useRouter, usePathname } from "next/navigation";
+import { axiosInstance } from "@/services/axios";
+import { AxiosError } from "axios";
 export interface User {
   id?: string | number;
   image?: string;
@@ -21,22 +21,25 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
   const [user, setUser] = useState<User>({
     email: "", firstName: "", lastName: ""
   })
-  // const router = useRouter();
-
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const res = await axiosInstance.get("/auth/get-user");
-  //       if (res.status !== 200) {
-  //         if (!["/about", "/login", "/register", "/"].includes(usePathname()))
-  //           router.push("/login");
-  //       }
-  //     const data = await res.data;
-  //     setUser({
-  //       email: data.email, firstName: data.firstName, lastName: data.lastName
-  //     })
-  //   }
-  //   getUser();
-  // }, []);
+  const router = useRouter();
+  const pathname = usePathname();
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axiosInstance.get("/user/get-user");
+        const data = await res.data.user;
+        setUser({
+          email: data.email, firstName: data.firstName, lastName: data.lastName
+        })
+      } catch(error) {
+        if (error instanceof AxiosError) console.log(error.cause);
+        if (!["/about", "/auth/login", "/auth/register", "/"].includes(pathname)){
+          console.log("redirecting you from the context");
+          router.push("/auth/login");}
+      }
+    }
+    getUser();
+  }, [pathname, router]);
   
   return(
     <AuthContext.Provider value={{user, setUser}}>

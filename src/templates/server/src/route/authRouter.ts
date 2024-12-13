@@ -8,6 +8,6 @@ authRouter.post("/logout", AuthController.logoutUser);
 authRouter.get("/verify", AuthController.verify);
 authRouter.post("/google-login", AuthController.loginWithGoogle);
 authRouter.post("/send-code", AuthController.sendCode);
-authRouter.post("/change-password", AuthController.changePassword)
+authRouter.post("/reset-password", AuthController.resetPassword)
 
 export default authRouter;

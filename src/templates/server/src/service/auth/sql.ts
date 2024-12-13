@@ -3,7 +3,7 @@ import * as bcrypt from "bcryptjs";
 import { Token } from "../../models/sqlModels/token";
 import { AuthRequestBody, GoogleData, LoginData, TokenData } from "../../types/auth";
 import { generateCode } from "../../../dist/src/utils/code";
-import { Code } from "../../models/mongodbModels/code";
+import { Code } from "../../models/sqlModels/codeModel";
 
 export const registerUser = async (data: AuthRequestBody) => {
   const {firstName, lastName, password, email} = data;
@@ -38,8 +38,9 @@ export const addSqlToken = async (data: TokenData) => {
 
 export const checkSqlToken = async (token: string): Promise<boolean> => {
   const result = await Token.findOne({where: {token}});
-  if (result) {
+  if (result && result.dataValues !== null) {
     const date = new Date();
+    console.log(result.dataValues.expiresAt);
     if (date < result.dataValues.expiresAt) return true;
     else await Token.destroy({where: {token}});
   }
@@ -70,7 +71,7 @@ export const sqlCreateOrFindUser = async (data: GoogleData) => {
       else return newUser;
     }
   } catch (error) {
-    console.error(error.message);
+    console.error((error as Error).message);
     return false;
   }
 }
@@ -80,17 +81,17 @@ export const sqlGetOrGenerateCode = async (email: string, type: "emailVerificati
     const user = await User.findOne({where: { email: email }});
     if (user) {
       const code = await Code.findOne({where: {userId: user.dataValues.id, codeType: type}});
-      if (code) return code.code;
+      if (code) return code.dataValues.code;
       else {
         const code = generateCode();
         const saveCode = await Code.create({userId: user.dataValues.id, code: code, codeType: type});
         if (!code) throw new Error("Could not create code");
-        return saveCode.code
+        return saveCode.dataValues.code
       }
     }
     else throw new Error("Could not find user with the mail");
   } catch(error) {
-    console.error("Error changing password:", error);
+    console.error("Error generating code:", error);
     return false;
   }
 }
@@ -106,14 +107,14 @@ export const sqlVerifyCode = async (code: string, type: "emailVerification" | "f
 }
 export const sqlDeleteCode = async (code: string, type: "emailVerification" | "forgotPassword") => {
   try {
-    await Code.findOneAndDelete({where: {code: code, codeType: type}});
+    const value = await Code.findOne({where: {code: code, codeType: type}});
+    if (value) value.destroy();
   } catch(error) {
-    throw new Error(error.message);
-    return false;
+    throw new Error((error as Error).message);
   }
 }
 
-export const changeSqlPassword = async (email: string, password: string): Promise<boolean> => {
+export const changeSqlPassword = async (email: string, password: string) => {
   try {
     // Find the user by email
     const user = await User.findOne({where: { email: email }});
@@ -121,11 +122,11 @@ export const changeSqlPassword = async (email: string, password: string): Promis
       throw new Error("User not found");
     }
 
-    user.set(password, password);
+    await user.update({password: password});
     await user.save();
 
-    return true;
+    return user;
   } catch (error) {
-    throw new Error(error.message);
+    throw new Error((error as Error).message);
   }
 }

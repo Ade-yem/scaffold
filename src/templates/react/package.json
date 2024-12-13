@@ -1,5 +1,5 @@
 {
-  "name": "react",
+  "name": "frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "create:page": "node ./scripts/createPage.mjs",
+    "create:ui": "node ./scripts/createUI.mjs",
+    "create:context": "node ./scripts/createContext.mjs",
+    "create:component": "node ./scripts/createComponent.mjs"
   },
   "dependencies": {
     "@react-oauth/google": "^0.12.1",

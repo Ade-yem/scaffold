@@ -1,8 +1,8 @@
 import inquirer from "inquirer";
 import * as path from "path";
 import chalk from "chalk";
-import { ROOT_DIR } from "../root.mjs";
-import { createPage } from "./index.mjs";
+import { ROOT_DIR } from "../root";
+import { createPage } from "./index";
 
 const modelDir = path.join(ROOT_DIR, "src", "models");
 
@@ -16,7 +16,7 @@ inquirer.prompt([
   try {
     await createPage(answer.nameOfmodel, modelDir, "model");
   } catch (error) {
-    console.log(chalk.red(error.message));
+    console.log(chalk.red((error as Error).message));
     return;
   }
 })

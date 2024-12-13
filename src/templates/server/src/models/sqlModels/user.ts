@@ -15,6 +15,7 @@ export const User = sequelize.define("User", {
   },
   image: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
   isDeleted: {
     type: DataTypes.BOOLEAN,

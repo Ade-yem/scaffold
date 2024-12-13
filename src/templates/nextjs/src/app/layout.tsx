@@ -1,20 +1,10 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
+import "./fonts/dmMono.css"
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider } from "@/components/context/authContext";
-
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import Header from "@/components/ui/Header";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Scaffold",
@@ -30,11 +20,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        
       >
         <AuthProvider>
           <GoogleOAuthProvider clientId={process.env.Google_Client_ID ||"" }>
+            <Header/>
             {children}
+            <Toaster position="top-right" />
           </GoogleOAuthProvider>
         </AuthProvider>
       </body>

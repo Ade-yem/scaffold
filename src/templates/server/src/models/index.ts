@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-import config from "../../../server.config.mjs";
+import config from "../../server.config";
 
 const username = process.env.DB_USER || "root";
 const database = process.env.DB_NAME || "scaffold";

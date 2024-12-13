@@ -14,7 +14,7 @@ import jwt from "jsonwebtoken";
 import { sendCode } from "../service/resendService";
 
 const domain = process.env.DOMAIN || "localhost";
-const secret = process.env.jwt_SECRET || "adjnrfwmernwfjenfiwno";
+const secret = process.env.jwt_SECRET as string;
 
 export default class AuthController {
   static async loginUser(req: Request, res: Response): Promise<void> {
@@ -105,18 +105,22 @@ export default class AuthController {
 
   static async verify(req: Request, res: Response) {
     const token = req.signedCookies["auth"];
+    console.log(token);
     if (!token || token.trim() === "") {
-      res.status(401).json({ message: "Invalid token" });
+      res.status(422).json({ message: "Invalid token" });
       return;
     }
     try {
       const ress = await checkToken(token);
       if (ress) res.status(200).json({ message: "User token exists" });
+      else res.status(401).json({
+        message: "Token expired or unavailable"
+      });
     } catch (error) {
       res
-        .status(401)
+        .status(500)
         .json({
-          message: "Token expired or unavailable",
+          message: "Internal server error",
           cause: (error as Error).message,
         });
     }
@@ -150,21 +154,23 @@ export default class AuthController {
       if (code) {
         await sendCode(email, code);
         res.status(201).json({ message: "Code sent successfully" });
-      }
+      } else res.status(401).json({message: "Could not retrieve code"});
     } catch (error) {
       res.status(500).json({ message: (error as Error).message });
     }
   }
 
-  static async changePassword(req: Request, res: Response) {
+  static async resetPassword(req: Request, res: Response) {
     const { email, newPassword, code, type } = req.body;
     try {
       const checkCode = await verifyCode(code, type);
       if (checkCode) {
-        await changePassword(email, newPassword);
-        res
+        const user = await changePassword(email, newPassword);
+        console.log(user);
+        if (user) res
           .status(201)
           .json("Password change successful. Please login to continue");
+        else res.status(500).json({ message: "Could not change password" });
       } else {
         res.status(401).json({ message: "Invalid code" });
       }

@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as path from "path";
 import * as fs from "fs";
 import chalk from "chalk";
+import { exec, execSync } from "child_process";
 
 /**
  * 
@@ -93,17 +93,53 @@ function checkPath (filePath, pageDir) {
   if (fs.existsSync(pagePath)) throw new Error(`Page ${pagePath} already exist`);
 }
 
-function makePage (filePath, pageName, type) {
+function makePage(filePath, pageName, type) {
   if (type !== "component") {
     fs.writeFileSync(`${filePath}.tsx`, createContent(pageName, type), "utf-8");
+    const editor = checkEditor();
+    openFile(editor, `${filePath}.tsx`);
   } else {
     const writePath = path.join(filePath, type === "page" ? "page.tsx" : "index.tsx");
     fs.mkdirSync(filePath);
     fs.writeFileSync(writePath, createContent(pageName, type), "utf-8");
+    const editor = checkEditor();
+    openFile(editor, writePath);
   }
 }
 
 function checkInternalDirs (filePath) {
   if (fs.existsSync(filePath)) return true;
   return false;
+}
+
+function openFile(editor, filePath) {
+  const command = `${editor} ${filePath}`;
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.log(chalk.red(`Unable to open ${filePath} with ${editor}`));
+      console.error("Error: ", error);
+      return;
+    }
+    if (stderr) {
+      console.error("Stderr error: ", stderr);
+      return;
+    }
+    console.log(stdout);
+  })
+}
+
+const checkEditor = () => {
+  try {
+    execSync("code --version", { stdio: "ignore" });
+    return "code";
+  } catch (error) {
+    console.log(chalk.blue(error.message));
+  }
+  try {
+    execSync("vim --version", { stdio: "ignore" });
+    return "vim";
+  } catch (error) {
+    console.log(chalk.blue(error.message));
+  }
+  return "";
 }

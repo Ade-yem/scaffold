@@ -1,6 +1,6 @@
 import { connectSequelize } from "./connectSequelize";
 import { connectMongoose } from "./connectMongoose";
-import config from "../../server.config.mjs";
+import config from "../../server.config";
 
 export const connectDb = async () => {
   if (config.database === "mongodb") {

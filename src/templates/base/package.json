@@ -6,20 +6,20 @@
     "packages": ["workspace/*"]
   },
   "scripts": {
-    "create:controller": "yarn workspace @scaffold/server create:controller",
-    "create:route": "yarn workspace @scaffold/server create:route",
-    "create:model": "yarn workspace @scaffold/server create:model",
-    "create:service": "yarn workspace @scaffold/server create:service",
-    "start": "yarn workspace @scaffold/server start",
-    "create:page": "yarn workspace @scaffold/frontend create:page",
-    "create:ui": "yarn workspace @scaffold/frontend create:ui",
-    "create:context": "yarn workspace @scaffold/frontend create:context",
-    "dev": "yarn workspace @scaffold/frontend dev",
-    "build": "yarn workspace @scaffold/frontend build",
-    "client:start": "yarn workspace @scaffold/frontend start",
-    "lint": "yarn workspace @scaffold/frontend lint"
+    "create:controller": "yarn workspace server create:controller",
+    "create:route": "yarn workspace server create:route",
+    "create:model": "yarn workspace server create:model",
+    "create:service": "yarn workspace server create:service",
+    "start": "yarn workspace server start",
+    "create:page": "yarn workspace frontend create:page",
+    "create:ui": "yarn workspace frontend create:ui",
+    "create:context": "yarn workspace frontend create:context",
+    "dev": "yarn workspace frontend dev",
+    "build": "yarn workspace frontend build",
+    "client:start": "yarn workspace frontend start",
+    "lint": "yarn workspace frontend lint"
   },
   "dependencies": {
-    "deno-bin": "^2.0.3"
-  }
+  },
+  "license": "MIT"
 }

@@ -1,5 +1,5 @@
 {
-  "name": "scaffold",
+  "name": "mern-menn",
   "version": "1.0.0",
   "description": "a scaffold for nodejs apps and web3 apps with full integration, authentication and can use any database of your choice, sql and nosql",
   "main": "dist/index.js",
@@ -14,6 +14,7 @@
     "build:es": "rimraf es && tsc --target es6 --outDir es --module es6",
     "build": "tsc && shx rm -rf dist/templates &&  shx cp -r src/templates dist",
     "start": "tsx src/index.ts",
+    "dev": "node dist/index.js",
     "prepublishOnly": "yarn build"
   },
   "bin": {

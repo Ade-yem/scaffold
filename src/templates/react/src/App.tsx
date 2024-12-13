@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/home";
+import ForgotPassword from "./pages/auth/forgotPassword";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import Profile from "./pages/profile";
+import ProfileSettings from "./pages/profile/Settings";
+import { HomeLayout } from "./components/layouts/HomeLayout";
+import "./App.css";
+import { ProfileLayout } from "./components/layouts/ProfileLayout";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="w-full min-h-screen text-black dark:text-white bg-white dark:bg-black/50">
+      <Routes>
+        <Route path="/" element={<HomeLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/auth">
+            <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/register" element={<Register />} />
+          </Route>
+        </Route>
+        <Route path="/profile" element={<ProfileLayout />}>
+          <Route index element={<Profile />} />
+          <Route path="/profile/settings" element={<ProfileSettings />} />
+        </Route>
+      </Routes>
+    </div>
+  );
 }
 
-export default App
+export default App;

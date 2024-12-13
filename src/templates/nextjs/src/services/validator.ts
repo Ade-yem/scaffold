@@ -32,3 +32,21 @@ export const validate = (
     setError((prev) => ({ ...prev, password: "" }));
   }
 }
+
+
+export const validatePassword = (
+  password: string,
+  setError: React.Dispatch<React.SetStateAction<{
+    password: string;
+  }>>
+) => {
+  if (!password || password === "") setError((prev) => ({ ...prev, password: "Password is required"}));
+  else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test(password)) setError((prev) => ({ ...prev, password: `Password must contain at least 8 characters,
+  including at least one capital letter,
+  one small letter and
+  one special character`
+  }));
+  else {
+    setError((prev) => ({ ...prev, password: "" }));
+  }
+}
