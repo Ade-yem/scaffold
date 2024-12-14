@@ -18,9 +18,12 @@
     "prepublishOnly": "yarn build"
   },
   "bin": {
-    "mern-menn": "./dist/index.js"
+    "mern-menn": "dist/index.js"
   },
-  "repository": "https://github.com/Ade-yem/scaffold",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ade-yem/scaffold.git"
+  },
   "author": "Adeyemi Adejumo",
   "license": "MIT",
   "private": false,

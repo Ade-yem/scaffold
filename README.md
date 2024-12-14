@@ -27,7 +27,11 @@ It consists of a frontend and a baackend and you can choose the stack you want t
 ### Installation
 1. Install the package
   ```sh
-    yarn install mern-menn --global
+    yarn global add mern-menn
+  ```
+  OR
+  ```sh
+    npm install mern-menn -g
   ```
 2. run `mern-menn` - This will ask your type of frontend and name of the project to generate the scaffold and install the dependencies for you.
 
