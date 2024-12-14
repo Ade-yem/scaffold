@@ -1,4 +1,4 @@
-# mern-menn
+# scaffold-mernn
 This is a scaffold generator for a fill stack nodejs project which follows the appropriate mvc architecture. It consists of technologies such as 
 - react
 - next.js
@@ -126,6 +126,3 @@ Future updates includes
 - More authorization methods for the backend like authorization headers and more.
 - More advanced cli scripts to make files managment much more easier.
 - Scaffolds for Web3 projects.
-
-## Keywords
-react, next.js, express, sequelize, mongoose, resend, mongodb, mysql

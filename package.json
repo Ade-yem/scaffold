@@ -1,6 +1,6 @@
 {
-  "name": "mern-menn",
-  "version": "1.0.1",
+  "name": "scaffold-mernn",
+  "version": "1.0.0",
   "description": "a scaffold for nodejs apps and web3 apps with full integration, authentication and can use any database of your choice, sql and nosql",
   "main": "dist/index.js",
   "type": "module",
@@ -18,7 +18,7 @@
     "prepublishOnly": "yarn build"
   },
   "bin": {
-    "mern-menn": "dist/index.js"
+    "scaffold-mernn": "dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -55,9 +55,14 @@
   },
   "files": [
     "es",
-    "lib"
+    "lib",
+    "dist",
+    "dist/templates"
   ],
   "types": "./lib/index.d.ts",
   "jsnext:main": "./es/index.js",
-  "module": "./es/index.js"
+  "module": "./es/index.js",
+  "keywords": [
+    "react", "next.js", "express", "sequelize", "mongoose", "resend", "mongodb", "mysql"
+  ]
 }
