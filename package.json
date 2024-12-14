@@ -18,7 +18,7 @@
     "prepublishOnly": "yarn build"
   },
   "bin": {
-    "generator": "./dist/index.js"
+    "mern-menn": "./dist/index.js"
   },
   "repository": "https://github.com/Ade-yem/scaffold",
   "author": "Adeyemi Adejumo",

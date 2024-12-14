@@ -12,8 +12,6 @@ import { exec, execSync } from "child_process";
 export function createContent(name, type) {
   const convertName = name.charAt(0).toLocaleUpperCase() + name.slice(1);
   const pageContent = `
-  "use client";
-  
   export default function ${convertName} () {
     return (
       <div className="text-center">
@@ -53,7 +51,7 @@ export function createContent(name, type) {
  * Creates a file and add templates to it
  * @param {string} nameOfPage name of the page
  * @param {string} pageDir directory path of the file
- * @param {"controller" | "model" | "route" |"service"} type type of file
+ * @param {"component" | "page" | "context" | "ui"} type type of file
  */
 export async function createPage(nameOfPage, pageDir, type) {
   checkPath(nameOfPage, pageDir, type);
