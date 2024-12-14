@@ -127,3 +127,5 @@ Future updates includes
 - More advanced cli scripts to make files managment much more easier.
 - Scaffolds for Web3 projects.
 
+## Keywords
+react, next.js, express, sequelize, mongoose, resend, mongodb, mysql
